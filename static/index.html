@@ -457,6 +457,7 @@
         <input type="hidden" name="ac_sci_name" value="A TRIBUTE TO ALICE RAISMAN" />
         <input type="hidden" id="ac_amount" name="ac_amount" value="15.00" />
         <input type="hidden" name="ac_currency" value="USD" />
+        <input type="hidden" id="ac_order_id" name="ac_order_id" value="123456789" />
         <input type="hidden" name="ac_sign" value="7adc718783a451520292e5b718fe289c0a7b7f331a52814ee563bca3911e437f" />
         <input type="hidden" name="ac_success_url" value="https://alice-raisman-github-io.onrender.com/success" />
         <input type="hidden" name="ac_success_url_method" value="GET" />
@@ -504,11 +505,17 @@
 <script>
   let selectedAmount = 15;
 
+  // уникальный order_id при загрузке
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('ac_order_id').value = 'order_' + Date.now();
+  });
+
   function selectAmount(val, el) {
     document.querySelectorAll('.amount-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     selectedAmount = val;
     document.getElementById('ac_amount').value = val + '.00';
+    document.getElementById('ac_order_id').value = 'order_' + Date.now();
   }
 
   const observer = new IntersectionObserver(entries => {
